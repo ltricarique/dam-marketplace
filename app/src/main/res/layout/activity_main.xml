@@ -1,18 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</android.support.constraint.ConstraintLayout>
+        android:text="@string/text_view_titulo_text"/>
+    <EditText
+        android:id="@+id/tituloEditTextId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|top"
+        android:lines="1"
+        android:hint="@string/edit_text_titulo_hint">
+    </EditText>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_view_descripcion_text"/>
+    <EditText
+        android:id="@+id/descripionEditTextId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:maxLines="3"
+        android:hint="@string/edit_text_descripion_hint">
+    </EditText>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_view_email_text"/>
+    <EditText
+        android:id="@+id/emailEditTextId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|top"
+        android:lines="1"
+        android:inputType="textEmailAddress"
+        android:hint="@string/edit_text_email_hint">
+    </EditText>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_view_importe_text"/>
+    <EditText
+        android:id="@+id/importeEditTextId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|top"
+        android:lines="1"
+        android:inputType="numberDecimal"
+        android:hint="@string/edit_text_importe_hint">
+    </EditText>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/text_view_categoria_text"/>
+    <Spinner
+        android:id="@+id/categoriaSpinnerId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </Spinner>
+    <Switch
+        android:id="@+id/descuentoSwitchId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/switch_descuento_text">
+    </Switch>
+    <LinearLayout
+        android:id="@+id/linearLayoutDescuentoId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+        <TextView
+            android:layout_width="35dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="@string/text_view_min_text"/>
+        <SeekBar
+            android:id="@+id/descuentoSeekBarId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:min="0"
+            android:max="100"
+            android:layout_weight="1">
+        </SeekBar>
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="@string/text_view_max_text"/>
+    </LinearLayout>
+    <CheckBox
+        android:id="@+id/retiroCheckBoxId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:text="@string/checkbox_retiro_text">
+    </CheckBox>
+    <EditText
+        android:id="@+id/retiroEditTextId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|top"
+        android:lines="1"
+        android:inputType="text"
+        android:hint="@string/edit_text_retiro_hint">
+    </EditText>
+    <CheckBox
+        android:id="@+id/terminosCheckBoxId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/checkbox_terminos_text">
+    </CheckBox>
+    <Button
+        android:id="@+id/publicarButtonId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="@string/button_publicar_text">
+    </Button>
+</LinearLayout>
