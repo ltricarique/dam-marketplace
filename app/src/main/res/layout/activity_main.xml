@@ -63,11 +63,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/text_view_categoria_text"/>
-    <Spinner
-        android:id="@+id/categoriaSpinnerId"
+    <TextView
+        android:id="@+id/categoriaTextViewId"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Spinner>
+        android:layout_height="40dp"
+        android:drawableRight="@drawable/outline_arrow_drop_down_black_18"
+        android:gravity="start|center"
+        android:clickable="true"
+        android:text="">
+    </TextView>
     <Switch
         android:id="@+id/descuentoSwitchId"
         android:layout_width="match_parent"

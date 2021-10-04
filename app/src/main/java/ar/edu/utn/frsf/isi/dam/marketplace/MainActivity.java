@@ -1,6 +1,10 @@
 package ar.edu.utn.frsf.isi.dam.marketplace;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
@@ -12,23 +16,24 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ar.edu.utn.frsf.isi.dam.marketplace.model.Categoria;
 
 public class MainActivity extends AppCompatActivity {
-    private ArrayAdapter<Categoria> categoriaArrayAdapter;
+    private static final int CODIGO_SELECCIONAR_CATEGORIA = 1;
+
     private EditText tituloEditText;
     private EditText descripcionEditText;
     private EditText emailEditText;
     private EditText importeEditText;
-    private Spinner categoriaSpinner;
+    private TextView categoriaTextView;
     private LinearLayout descuentoLinearLayout;
     private Switch descuentoSwitch;
     private SeekBar descuentoSeekBar;
@@ -48,11 +53,14 @@ public class MainActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditTextId);
         importeEditText = findViewById(R.id.importeEditTextId);
         retiroEditText = findViewById(R.id.retiroEditTextId);
-
-        categoriaArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getCategorias());
-
-        categoriaSpinner = findViewById(R.id.categoriaSpinnerId);
-        categoriaSpinner.setAdapter(categoriaArrayAdapter);
+        categoriaTextView = findViewById(R.id.categoriaTextViewId);
+        categoriaTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this, CategoriaActivity.class);
+                startActivityForResult(i, CODIGO_SELECCIONAR_CATEGORIA);
+            }
+        });
 
         descuentoLinearLayout = findViewById(R.id.linearLayoutDescuentoId);
         descuentoSeekBar = findViewById(R.id.descuentoSeekBarId);
@@ -123,6 +131,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private List<Categoria> getCategorias() {
+        return Arrays.asList(new Categoria("", "", 1), new Categoria("1", "dfsdf", 1));
+    }
+
     private boolean validar() {
         if (TextUtils.isEmpty(tituloEditText.getText().toString().trim())) {
             Toast.makeText(getApplicationContext(), R.string.validacion_titulo_requerido, Toast.LENGTH_LONG).show();
@@ -156,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
 
-        if (((Categoria) categoriaSpinner.getSelectedItem()).getId() < 1) {
+        if (TextUtils.isEmpty(categoriaTextView.getText().toString().trim())) {
             Toast.makeText(getApplicationContext(), R.string.validacion_categoria_requerido, Toast.LENGTH_LONG).show();
             return false;
         }
@@ -181,17 +193,13 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    private List<Categoria> getCategorias() {
-        ArrayList<Categoria> categorias = new ArrayList<>();
-
-        categorias.add(new Categoria(0, getString(R.string.categoria_vacio_nombre)));
-        categorias.add(new Categoria(1, getString(R.string.categoria_indumentaria_nombre)));
-        categorias.add(new Categoria(2, getString(R.string.categoria_electronica_nombre)));
-        categorias.add(new Categoria(3, getString(R.string.categoria_entretenimiento_nombre)));
-        categorias.add(new Categoria(4, getString(R.string.categoria_jardin_nombre)));
-        categorias.add(new Categoria(5, getString(R.string.categoria_vehiculos_nombre)));
-        categorias.add(new Categoria(6, getString(R.string.categoria_juguetes_nombre)));
-
-        return categorias;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CODIGO_SELECCIONAR_CATEGORIA) {
+                Categoria categoria = data.getParcelableExtra("categoria");
+                categoriaTextView.setText(categoria.getNombre());
+            }
+        }
     }
 }
